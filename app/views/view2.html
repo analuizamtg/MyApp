@@ -1,0 +1,63 @@
+<div class="container">
+    <h3 ng-show="name !== undefined"> Hello, {{name}}!</h3>
+
+    <h3 class="title">List of People</h3>
+</div>
+
+<div class="container">
+	<div class="row">
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="nameCheckbox">Sort by name</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="ageCheckbox">Sort by age</label>
+            </div>
+
+		<div id="custom-search-input">
+        	<div class="input-group col-md-4">
+            	<input type="search" class="search-query form-control" ng-model=searchInput placeholder="Filter" />
+        	</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="container">
+<table class="table table-hover ng-table-rowselected">
+     <thead>
+         <tr>
+             <th class="text-center"><a href="">ID</a></th>
+             <th class="text-center"><a href="">Name</a></th>
+             <th class="text-center"><a href="">Age</a></th>
+         </tr>
+     </thead>
+     <tbody>
+     <tr class="animate-repeat" ng-show="!nameCheckbox && !ageCheckbox" data-ng-repeat="person in peopleList | filter:searchInput">
+        <td class="text-center">{{ person.id}}</td>
+		<td class="text-center">{{ person.name}}</td>	
+        <td class="text-center">{{ person.age}}</td>
+     </tr>
+
+     <tr class="animate-repeat" ng-show="nameCheckbox && ageCheckbox" ng-repeat="person in peopleList | orderBy: ['name', 'age']: reverse | filter:searchInput">
+        <td class="text-center">{{ person.id}}</td>
+		<td class="text-center">{{ person.name}}</td>	
+        <td class="text-center">{{ person.age}}</td>
+     </tr>  
+
+    <tr class="animate-repeat" ng-show="nameCheckbox && !ageCheckbox" ng-repeat="person in peopleList | orderBy: 'name': reverse | filter:searchInput">
+        <td class="text-center">{{ person.id}}</td>
+		<td class="text-center">{{ person.name}}</td>	
+        <td class="text-center">{{ person.age}}</td>
+     </tr>  
+
+    <tr class="animate-repeat" ng-show="!nameCheckbox && ageCheckbox" ng-repeat="person in peopleList | orderBy: 'age': reverse | filter:searchInput">
+        <td class="text-center">{{ person.id}}</td>
+		<td class="text-center">{{ person.name}}</td>	
+        <td class="text-center">{{ person.age}}</td>
+    </tr> 
+
+     </tbody>
+ </table>
+</div>
+
+
